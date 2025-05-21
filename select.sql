@@ -1,4 +1,5 @@
 -- Active: 1747547635271@@127.0.0.1@5432@ms
+-- Create the 'students' table with necessary fields
 CREATE TABLE students (
     student_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL ,
@@ -11,6 +12,9 @@ CREATE TABLE students (
     blood_group VARCHAR(5),
     country VARCHAR(50)
 );
+
+
+-- Insert sample data for students
 
 INSERT INTO students (first_name, last_name, age, grade, course, email, dob, blood_group, country)
 VALUES
@@ -26,9 +30,10 @@ VALUES
     ('Tahsin', 'Ahmed', 19, 'B', 'Math', 'tahsin.ahmed@example.com', '2005-01-30', 'B+', 'Bangladesh');
 
 
+-- Show all student table
 SELECT * FROM students;
 
-
+-- Insert sample data for students
 INSERT INTO students (first_name, last_name, age, grade, course, email, dob, blood_group, country)
 VALUES
     ('John', 'Doe', 20, 'A', 'Math', 'john.doe@example.com', '2004-01-15', 'O+', 'USA'),
@@ -52,36 +57,47 @@ VALUES
     ('Emma', 'Gonzalez', 24, 'A', 'Physics', NULL, '1999-09-30', 'B+', 'Australia'),
     ('Miam', 'Wright', 19, 'C', 'Math', 'liam.wright@example.com', '2002-06-14', 'A+', 'New Zealand');
 
+-- Sort students by birth date (latest to earliest)
 SELECT * FROM students ORDER BY dob DESC;
 
+-- Sort students by birth date (earliest to latest)
 SELECT * FROM students ORDER BY dob ASC;
 
+-- Get all unique blood groups
 
 SELECT DISTINCT blood_group from students;
 
+-- Select students from USA or Australia aged 20
 SELECT * from students
     WHERE (country = 'USA' OR country = 'Australia') and age = 20;
 
+-- Select students from Bangladesh aged 20 or older
 SELECT * from students
     WHERE (country = 'Bangladesh') and age >= 20;
 
+-- Select students not from the USA
 SELECT * from students
     WHERE country <> 'USA' ;
 
+-- Sort first names by length (ascending)
 SELECT first_name, length(first_name) from students ORDER BY length(first_name) ASC;
+-- Sort last names by length (descending)
 SELECT last_name, length(last_name) from students ORDER BY length(last_name) DESC;
 
+-- Count total number of students
 SELECT count(*) from students;
 
+-- Count total number of students with label
 SELECT 'Total = ' || COUNT(*) AS total_students
 FROM students;
 
-
+-- Get the max length of first names
 SELECT max(length(first_name)) from students;
 
+-- Get the max length of first names
 SELECT MAX(LENGTH(first_name)) AS max_name_length FROM students;
 
-
+-- Get students with the longest first name(s)
 SELECT first_name, last_name, LENGTH(first_name) AS name_length
 FROM students
 WHERE LENGTH(first_name) = (
